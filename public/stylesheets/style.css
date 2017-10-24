@@ -1,0 +1,88 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+}
+/*login,register*/
+.box{
+  background: rgba(255,255,255,0.2);
+  margin:100px auto;
+}
+.span{
+  color: rgb(97, 5, 5)
+}
+/*首页 */
+#wrapper{
+  width: 100%;
+  background: #202020;
+}
+.nav-cls-top{
+  background: #4d4d4d;
+}
+.navbar-header{
+  background: #A70303;
+}
+.navbar-header a{
+  color: #fff;
+  background: #C90000;
+  width: 260px;
+  text-align: center;
+  height: 60px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.navbar-header a:hover{
+  color: #fff;
+}
+.info{
+  color: white;
+  padding: 15px 50px 5px 50px;
+  float: right;
+  font-size:16px;
+}
+.navbar-side{
+  z-index: 1;
+  position: absolute;
+  width: 260px;
+}
+.navbar-default{
+  border:0px solid black;
+}
+.navbar-side{
+  background: #202020;
+}
+.sidebar-collapse > .nav > li {
+  border-bottom: 1px solid rgba(107, 108, 109, 0.19);
+}
+
+.user-image{
+  margin: 25px auto;
+  border-radius: 10px;
+  max-height: 170px;
+  max-width: 170px;
+}
+.sidebar-collapse>.nav>li>a{
+  padding: 15px 10px;
+}
+.sidebar-collapse .nav>li>a{
+  color: #fff;
+  background: #202020;
+  text-shadow: none;
+}
+.nav>li>a>i{
+  margin-right: 10px;
+}
+.arrow{
+  float:right;
+}
+.nav-second-level li a {
+  padding-left: 37px;
+}

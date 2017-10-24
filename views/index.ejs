@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <title><%= title %></title>
+  </head>
+  <body style="padding:0;">
+    <% if(username){ %>
+      <div id="wrapper">
+       <nav class="navbar nav-cls-top" role="navigation" style="border:0;margin-bottom:0;">
+         <div class="navbar-header">
+           <a href="/" class="navbar-brand">Admin</a>
+         </div>
+         <div class="info">欢迎:<%- username%>&nbsp;&nbsp;
+          <a href="/logout" class="btn btn-danger square-btn-adjust">Logout</a>
+        </div>
+       </nav>
+       <nav class="navbar-default navbar-side" role="navigation">
+         <div class="sider-collapse">
+           <ul class="nav" id="main-menu">
+             <li class="text-center">
+               <img src="/images/user.png" class="user-image img-responsive">
+             </li>
+             <li class="active">
+                <a href="#">
+                  <i class="fa fa-sitemap fa-3x"></i>
+                  Multi-Level<span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li>
+                      <a href="#">second</a>
+                    </li>
+                    <li>
+                      <a href="#">second</a>
+                    </li>
+                    <li>
+                      <a href="#">second</a>
+                    </li>
+                </ul>
+             </li>
+           </ul>
+         </div>
+       </nav>
+      </div>
+   <% }else{ %>
+    <script>location.href="./login";</script>
+   <% } %>
+  </body>
+</html>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
