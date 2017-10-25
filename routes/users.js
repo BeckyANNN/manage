@@ -80,6 +80,7 @@ router.post("/login",(req,res)=>{
     selectData(db,(result)=>{
       if(result.length>0){
         req.session.username = username;
+        req.session.password = password;
         console.log(req.session.username);
         res.redirect("/");
       }else{

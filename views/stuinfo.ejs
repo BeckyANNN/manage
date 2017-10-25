@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <title><%= title %></title>
+  </head>
+  <body style="padding:0;">
+    <% if(username){ %>
+      <%- include("home")%>
+       <div id="page-wrapper">
+        <div class="page-inner">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color:#f00;">Students infomation</h2>
+              <h5>Welcome <%- username%>,Love to see you back.</h5>
+            </div>
+          </div>
+          <hr>
+          <!-- tab -->
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Tab
+                      </div>
+                      <div class="panel-body">
+                            <table class="table bordered text-center">
+                                <thead>
+                                    <th class="col-md-3 text-center">id</th>
+                                    <th class="col-md-1 text-center">姓名</th>
+                                    <th class="col-md-1 text-center">性别</th>
+                                    <th class="col-md-1 text-center">年龄</th>
+                                    <th class="col-md-2 text-center">专业</th>
+                                    <th class="col-md-1 text-center">班级</th>
+                                    <th class="col-md-1 text-center">密码</th>
+                                    <th class="col-md-2 text-center">编辑</th>
+                                </thead>
+                                <tbody>
+                                    <% if(result.length>0){ %>
+                                        <% result.forEach((item,index)=>{ %>
+                                            <tr>
+                                                <td><%- item._id %></td>
+                                                <td><a href="#"><%- item.name %></a></td>
+                                                <td><%- item.sex %></td>
+                                                <td><%- item.age %></td>
+                                                <td><%- item.major %></td>
+                                                <td><%- item.banji %></td>
+                                                <td><%- item.pwd %></td>
+                                                <td>
+                                                    <button class="btn btn-default btn-xs">修改</button>
+                                                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deletebox" id="deleteone" onclick="deleteone('<%- item.name%>')">删除</button>
+                                                </td>
+                                            </tr>
+                                       <% }) %>
+                                       <tr style="margin-top:10px !important;">
+                                           <td colspan="8">
+                                                <a href="/stuinfo?pageNo=1">首页</a>
+                                                <a href="/stuinfo?pageNo=<%- pageNo<=1?1:pageNo-1%>">上一页</a>
+                                                <a href="/stuinfo?pageNo=<%- pageNo>=totalPage?totalPage:pageNo+1%>">下一页</a>
+                                                <a href="/stuinfo?pageNo=<%- totalPage%>">尾页</a>
+                                                <%- pageNo %>/ <%- totalPage%>
+                                                共<%- count%>条数据
+                                           </td>
+                                       </tr>
+
+                                       <!-- 弹出框 -->
+                                        <div class="modal fade" id="deletebox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    
+                                                    <div class="modal-body">
+                                                        <h3>确认删除?</h3>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                          <button type="button" class="btn btn-primary"  id="del" value="确认">确认</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                    <% }else{ %>
+                                        <tr>
+                                            <tr>
+                                                <td colspan="8" class="text-center text-muted">
+                                                    <p>暂无数据...</p>
+                                                </td>
+                                            </tr>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+        </div>
+       </div>
+   <% }else{ %>
+    <script>location.href="./login";</script>
+   <% } %>
+  </body>
+</html>
+<script src="/javascripts/jquery-1.11.3.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+      var deleteId = null;
+      function deleteone(arg){
+        if(arg!=-1){
+              deleteId = arg;
+          }else{
+              deleteId = -1;
+          }               
+      }
+      
+
+      $("#del").on("click",function(arg){
+        console.log(deleteId);
+          $.ajax({
+              url:"/comment/delete",
+              data:{
+                  name:deleteId
+              },
+              type:"get",
+              success:function(data){
+                  console.log("success");
+                  location.reload(true);
+                  location.href = "/stuinfo";
+              }
+          });
+          $("#deletebox").modal("toggle");
+      })
+</script>
