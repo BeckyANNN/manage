@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <title><%= title %></title>
+  </head>
+  <body style="padding:0;">
+    <% if(username){ %>
+      <%- include("stuhome")%>
+       <div id="page-wrapper">
+        <div class="page-inner">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color:#f00;">Students infomation</h2>
+              <h5>Welcome <%- username%>,Love to see you back.</h5>
+            </div>
+          </div>
+          <hr>
+          <!-- tab -->
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                          Tab
+                      </div>
+                      <div class="panel-body">
+                            <table class="table bordered text-center">
+                                <thead>
+                                    <th class="col-md-3 text-center">id</th>
+                                    <th class="col-md-2 text-center">课程名</th>
+                                    <th class="col-md-1 text-center">学时</th>
+                                    <th class="col-md-1 text-center">学分</th>
+                                    <th class="col-md-2 text-center">添加时间</th>
+                                    <th class="col-md-3 text-center">选课</th>
+                                </thead>
+                                <tbody>
+                                    <% if(result.length>0){ %>
+                                        <% result.forEach((item,index)=>{ %>
+                                            <tr>
+                                                <td><%- item._id %></td>
+                                                <td><a href="#"><%- item.cname %></a></td>
+                                                <td><%- item.ctime %></td>
+                                                <td><%- item.credit %></td>
+                                                <td><%- item.date %></td>
+                                                <% arr.forEach((item1,index1)=>{ %>
+                                                    
+                                                   <% if(item.cname==item1.cname&&item1.username==username){ %>
+                                                    <%- item.cname=""%>
+                                                   <% } %>
+                                                    
+                                    
+                                                    
+                                                <%})%>
+                                                <%if(item.cname){%>
+                                                    <td><input type="checkbox" id="check" value="<%- item.cname%>" ></td>
+                                                <%}else{%>
+                                                    <td><input type="checkbox" id="check"  disabled checked></td>
+                                                <%}%>
+                                                
+                                            </tr>
+                                           
+                                       <% }) %>
+                                       <tr>
+                                            <td colspan="6" class="text-right">
+                                                <button class="btn btn-success" id="btn" onclick="alert('提交成功')">提交</button>
+                                            </td>
+                                       </tr>
+                                       <tr style="margin-top:10px !important;">
+                                           <td colspan="8">
+                                                <a href="/selectcourse?pageNo=1">首页</a>
+                                                <a href="/selectcourse?pageNo=<%- pageNo<=1?1:pageNo-1%>">上一页</a>
+                                                <a href="/selectcourse?pageNo=<%- pageNo>=totalPage?totalPage:pageNo+1%>">下一页</a>
+                                                <a href="/selectcourse?pageNo=<%- totalPage%>">尾页</a>
+                                                <%- pageNo %>/ <%- totalPage%>
+                                                共<%- count%>条数据
+                                           </td>
+                                       </tr>
+
+                                      
+                                    <% }else{ %>
+                                        <tr>
+                                            <tr>
+                                                <td colspan="8" class="text-center text-muted">
+                                                    <p>暂无数据...</p>
+                                                </td>
+                                            </tr>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+        </div>
+       </div>
+   <% }else{ %>
+    <script>location.href="./login";</script>
+   <% } %>
+  </body>
+</html>
+<script src="/javascripts/jquery-1.11.3.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $("#btn").on("click",function(e){
+        var arr = [];
+        $.each($('input:checkbox'),function(){
+            if(this.checked){
+                if($(this).val()&&$(this).val()!="on"){
+                    arr.push($(this).val());
+                }
+            }
+        });
+        $.ajax({
+            url:"/comment/select",
+            data:{
+                cname:arr
+            },
+            type:"get",
+            success:function(){
+                location.href="/selectcourse";
+            }
+        });
+        
+    });
+    
+    function cancel(){
+        $("#updatebox").modal("toggle");
+    }
+</script>

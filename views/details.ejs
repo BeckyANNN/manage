@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <title><%= title %></title>
+  </head>
+  <body style="padding:0;">
+    <% if(username){ %>
+      <%- include("stuhome")%>
+       <div id="page-wrapper">
+        <div class="page-inner">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 style="color:#f00;">Student infomation</h2>
+              <h5>Welcome <%- username%>,Love to see you back.</h5>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+              <table class="table table-bordered">
+                <tr>
+                  <td class="col-md-3">姓名</td>
+                  <td><%- username%></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3">年龄</td>
+                    <td><%- result.age%></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3">性别</td>
+                    <td><%- result.sex%></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3">专业</td>
+                    <td><%- result.major%></td>
+                </tr>
+                <tr>
+                    <td class="col-md-3">班级</td>
+                    <td><%- result.banji%></td>
+                </tr>
+                <tr>
+                  <td>密码</td>
+                  <td><%- result.pwd%></td>
+                </tr>
+              </table>
+              <button class="btn btn-default" data-toggle="modal" data-target="#update">修改</button>
+            </div>
+          </div>
+        </div>
+       </div>
+
+       <!-- 弹出框 -->
+       <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="exampleModalLabel">更新信息</h4>
+            </div>
+            <div class="modal-body">
+              <form action="/users/update" method="post">
+                <div class="form-group">
+                  <label for="rname" class="control-label text-primary">用户名:</label>
+                  <input type="text" class="form-control" id="rname" name="rname" value="<%- result.name%>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="rage" class="control-label text-primary">年龄:</label>
+                    <input type="text" class="form-control" id="rage" name="rage" value="<%- result.age%>">
+                </div>
+                <div class="form-group">
+                    <label class="control-label text-primary">性别:</label>
+                    <label style="display:block;" class="text-center">
+                        <input type="radio" class="radio-inline" name="rsex" value="male">male
+                        <input type="radio" class="radio-inline" name="rsex" value="female">female
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="rmajor" class="control-label text-primary">专业:</label>
+                    <input type="text" class="form-control" id="rmajor" name="rmajor" value="<%- result.major%>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="rbanji" class="control-label text-primary">班级:</label>
+                    <input type="text" class="form-control" id="rbanji" name="rbanji" value="<%- result.banji%>" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="rpwd" class="control-label text-primary">密码:</label>
+                  <input type="text" class="form-control" id="rpwd" name="rpwd" value="<%- result.pwd%>">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <input type="submit" class="btn btn-primary"  id="updateclose" value="确认修改"></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+   <% }else{ %>
+    <script>location.href="./login";</script>
+   <% } %>
+  </body>
+</html>
+<script src="/javascripts/jquery-1.11.3.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  var updateclose = document.getElementById("updateclose");
+  updateclose.onclick = close;
+  function close(){
+      $('#update').modal('toggle');
+  }
+</script>
